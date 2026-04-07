@@ -1,3 +1,9 @@
+// FilterView.jsx — The "emotions" layout
+// Shows all cards in a grid, with a filter bar at the top to narrow by emotion.
+// Clicking an emotion chip filters the grid to only show cards of that type.
+// Clicking a card focuses it in-place (uses the Card component directly,
+// unlike ScatterView which delegates focus to FocusedCard).
+
 import '../css/category.css'
 import Card from './Card'
 import { PRIMARY_EMOTIONS, emotionToColor } from '../data/seed'

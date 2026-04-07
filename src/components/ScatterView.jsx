@@ -1,6 +1,17 @@
+// ScatterView.jsx — The default "scatter" layout
+// Cards are spread across a large canvas in a loose grid with random rotation and offset.
+// Features:
+//   - Parallax: cards shift slightly as you move your mouse (depth effect)
+//   - Drag-to-pan: click and drag the background to explore the canvas
+//   - Click a card to focus it (opens the FocusedCard overlay in App.jsx)
+//
+// Cards are NOT flipped here — flipping happens in FocusedCard.
+
 import { useEffect, useRef, useState } from 'react'
 import '../css/scatter.css'
 
+// Converts a card's string ID into a number so we can derive
+// a consistent random-looking position and rotation for it
 function idToNum(id) {
   return id.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0)
 }

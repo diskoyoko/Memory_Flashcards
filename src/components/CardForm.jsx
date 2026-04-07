@@ -1,3 +1,14 @@
+// CardForm.jsx — Modal form for creating or editing a memory card
+// Used for both "Add new memory" (+) and "Edit" actions.
+// If `initial` is passed in, the form pre-fills with that card's data (edit mode).
+// If `initial` is null, it starts blank (add mode).
+//
+// The form has:
+//   - Title field
+//   - Memory text area
+//   - Primary emotion picker (coloured pill buttons)
+//   - Sub-emotion picker (shown after a primary is selected)
+
 import { useState } from 'react'
 import '../css/form.css'
 import { PRIMARY_EMOTIONS, SUB_EMOTIONS, emotionToColor } from '../data/seed'

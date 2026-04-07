@@ -1,3 +1,8 @@
+// Card.jsx — A single flashcard used in the Filter (emotions) view
+// Has two sides: front shows the emotion + title, back shows the memory content.
+// Click once to focus it, click again to flip it.
+// Edit/Delete buttons only appear when the card is focused and flipped.
+
 import '../css/card.css'
 import { emotionToColor } from '../data/seed'
 

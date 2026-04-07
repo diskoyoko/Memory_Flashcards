@@ -1,3 +1,11 @@
+// seed.js — Emotion definitions and starter memory cards
+//
+// This file has two jobs:
+//   1. Define the emotion system (PRIMARY_EMOTIONS, SUB_EMOTIONS, emotionToColor)
+//      based on Plutchik's Wheel of Emotions — 8 core emotions, each with nuance levels.
+//   2. Export seedMemories — 30 example cards shown to new users on first load.
+//      Once a user adds or edits cards, their own data replaces these.
+
 // ── Plutchik's Wheel of Emotions ─────────────────────────────────────────────
 // 8 primary emotions, each with 3 intensity levels (mild → mid → intense)
 // and a mapped gradient colour from the wheel.

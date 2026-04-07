@@ -1,10 +1,14 @@
-import '../css/focused.css'
-import { emotionToColor } from '../data/seed'
-
-/**
- * A fixed-position overlay that renders the focused card centered on screen.
- * Separate from ScatterView so there's no position-type transition conflict.
- */
+// FocusedCard.jsx — Full-screen overlay for a focused/selected card
+// When a card is clicked in ScatterView or FilterView, this component
+// renders on top of everything else (fixed position, centered on screen).
+//
+// Why it's separate from the card components:
+//   ScatterView uses absolute positioning for its cards. If we tried to
+//   animate a card from scattered → centered inside that same container,
+//   CSS transitions would conflict. Keeping the focused state here avoids that.
+//
+// Front: shows emotion + title + "tap to reveal" hint
+// Back: shows memory content + sub-emotion chips + Edit/Delete buttons
 export default function FocusedCard({ memory, flipped, onFlip, onEdit, onDelete, onDismiss }) {
   if (!memory) return null
 

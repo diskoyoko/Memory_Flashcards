@@ -1,3 +1,13 @@
+// useMemories.js — Custom hook for all flashcard data
+// This is where all cards are stored, loaded, and saved.
+// It uses localStorage so your cards persist between browser sessions
+// (no backend or database needed).
+//
+// How it works:
+//   1. On first load, it checks localStorage for saved cards
+//   2. If none exist (or the schema is outdated), it loads the seed cards
+//   3. Any time cards change, it saves them back to localStorage automatically
+
 import { useState, useEffect } from 'react'
 import { nanoid } from 'nanoid'
 import { seedMemories } from '../data/seed'

@@ -1,3 +1,8 @@
+// App.jsx — Root component
+// This is the brain of the app. It manages all shared state (which card is focused,
+// which view is active, whether a form modal is open) and passes the right data
+// down to each child component.
+
 import { useState, useEffect } from 'react'
 import './css/global.css'
 import './css/toggle.css'
@@ -8,6 +13,7 @@ import FocusedCard from './components/FocusedCard'
 import CardForm from './components/CardForm'
 
 export default function App() {
+  // useMemories handles reading/writing cards to localStorage
   const { memories, addMemory, updateMemory, deleteMemory } = useMemories()
 
   // ID of the focused card, or null
