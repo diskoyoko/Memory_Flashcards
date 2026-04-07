@@ -1,5 +1,13 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   global.css — Design tokens, resets, and shared utility styles
+   These CSS custom properties are used throughout all component stylesheets.
+   Changing a value here updates it everywhere in the app.
+───────────────────────────────────────────────────────────────────────────── */
+
+/* Google Fonts — Instrument Serif (titles/headings) + Inter (body/UI) */
 @import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
 
+/* Box-sizing reset — makes width/height include padding and border */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -7,39 +15,47 @@
 }
 
 :root {
-  --color-bg: #0E0E0E;
-  --color-surface: #1A1A1A;
-  --color-border: rgba(255,255,255,0.08);
-  --color-text: #F0EDE8;
-  --color-text-muted: rgba(240,237,232,0.45);
-  --color-overlay: rgba(0,0,0,0.65);
+  /* ── Colour palette ─────────────────────────────────────────────────────── */
+  --color-bg:         #0E0E0E;               /* near-black canvas background */
+  --color-surface:    #1A1A1A;               /* card back, modal background */
+  --color-border:     rgba(255,255,255,0.08);/* subtle white borders */
+  --color-text:       #F0EDE8;               /* warm off-white body text */
+  --color-text-muted: rgba(240,237,232,0.45);/* dimmed labels and hints */
+  --color-overlay:    rgba(0,0,0,0.65);      /* backdrop behind focused card */
 
+  /* ── Card dimensions ────────────────────────────────────────────────────── */
   --card-radius: 18px;
-  --card-width: 240px;
+  --card-width:  240px;
   --card-height: 320px;
 
-  --font-title: 'Instrument Serif', serif;
-  --font-body: 'Inter', sans-serif;
+  /* ── Typography ─────────────────────────────────────────────────────────── */
+  --font-title: 'Instrument Serif', serif;   /* italic serif for headings */
+  --font-body:  'Inter', sans-serif;         /* clean sans-serif for UI */
 
-  /* ── 8 gradients mapped to Plutchik's wheel + your dark aesthetic ── */
-  --grad-joy:          linear-gradient(160deg, #E8D84A 0%, #C4920A 100%);
-  --grad-trust:        linear-gradient(160deg, #52C96E 0%, #1A5C3A 100%);
-  --grad-fear:         linear-gradient(160deg, #2E7D52 0%, #071A0E 100%);
-  --grad-surprise:     linear-gradient(160deg, #7EC8E3 0%, #2D7A9A 100%);
-  --grad-sadness:      linear-gradient(160deg, #7B8FD4 0%, #1E2760 100%);
-  --grad-disgust:      linear-gradient(160deg, #C95BA5 0%, #5E1A50 100%);
-  --grad-anger:        linear-gradient(160deg, #E8291C 0%, #6B0D0D 100%);
-  --grad-anticipation: linear-gradient(160deg, #E8831C 0%, #7A3A00 100%);
+  /* ── Emotion gradients (Plutchik's Wheel) ───────────────────────────────── */
+  /* Each gradient corresponds to one of Plutchik's 8 primary emotions.
+     The colour direction (160deg) gives a consistent dark-to-light feel
+     that reads well on the dark canvas background. */
+  --grad-joy:          linear-gradient(160deg, #E8D84A 0%, #C4920A 100%); /* warm yellow-gold */
+  --grad-trust:        linear-gradient(160deg, #52C96E 0%, #1A5C3A 100%); /* green */
+  --grad-fear:         linear-gradient(160deg, #2E7D52 0%, #071A0E 100%); /* dark forest */
+  --grad-surprise:     linear-gradient(160deg, #7EC8E3 0%, #2D7A9A 100%); /* sky blue */
+  --grad-sadness:      linear-gradient(160deg, #7B8FD4 0%, #1E2760 100%); /* indigo-blue */
+  --grad-disgust:      linear-gradient(160deg, #C95BA5 0%, #5E1A50 100%); /* magenta-purple */
+  --grad-anger:        linear-gradient(160deg, #E8291C 0%, #6B0D0D 100%); /* deep red */
+  --grad-anticipation: linear-gradient(160deg, #E8831C 0%, #7A3A00 100%); /* burnt orange */
 }
 
+/* Full-height layout so the canvas fills the whole screen */
 html, body, #root {
   height: 100%;
   background: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased; /* smoother text on macOS/iOS */
 }
 
+/* Strip default button styles — each component adds its own */
 button {
   cursor: pointer;
   border: none;
@@ -48,27 +64,30 @@ button {
   color: inherit;
 }
 
+/* Ensure form inputs inherit the app font rather than the browser default */
 input, textarea, select {
   font-family: inherit;
 }
 
-/* Focus ring for keyboard navigability */
+/* Keyboard focus ring — visible only for keyboard navigation, not mouse clicks */
 :focus-visible {
   outline: 2px solid rgba(240,237,232,0.6);
   outline-offset: 2px;
   border-radius: 4px;
 }
 
-/* Mobile responsiveness */
+/* ── Mobile — smaller card dimensions on narrow screens ─────────────────── */
 @media (max-width: 768px) {
   :root {
-    --card-width: 150px;
+    --card-width:  150px;
     --card-height: 210px;
     --card-radius: 14px;
   }
 }
 
-/* New card badge */
+/* ── "just added" badge ──────────────────────────────────────────────────── */
+/* Small pill shown on a newly created card in both scatter and filter views.
+   Stays visible until the next card is added, then dissolves. */
 .card-new-badge {
   position: absolute;
   top: 14px;
@@ -86,7 +105,8 @@ input, textarea, select {
   backdrop-filter: blur(4px);
 }
 
-/* Empty state */
+/* ── Empty state ─────────────────────────────────────────────────────────── */
+/* Shown when no memory cards exist yet */
 .empty-state {
   position: absolute;
   top: 50%;
@@ -96,7 +116,7 @@ input, textarea, select {
   color: var(--color-text-muted);
   font-size: 14px;
   line-height: 1.8;
-  pointer-events: none;
+  pointer-events: none; /* doesn't block clicks on the canvas behind it */
 }
 
 .empty-state-title {

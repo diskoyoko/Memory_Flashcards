@@ -1,3 +1,9 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   category.css — Filter (Emotions) view layout and emotion chip bar
+   Cards are displayed in a responsive wrap grid. An emotion filter bar at the
+   top lets users narrow the view to a single primary emotion.
+───────────────────────────────────────────────────────────────────────────── */
+
 .category-view {
   padding: 80px 60px 60px;
   overflow-y: auto;

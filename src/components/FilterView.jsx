@@ -1,8 +1,19 @@
 // FilterView.jsx — The "emotions" layout
-// Shows all cards in a grid, with a filter bar at the top to narrow by emotion.
-// Clicking an emotion chip filters the grid to only show cards of that type.
-// Clicking a card focuses it in-place (uses the Card component directly,
-// unlike ScatterView which delegates focus to FocusedCard).
+//
+// Shows all memory cards in a wrap grid, organised by emotion.
+// At the top is a filter bar — one chip per emotion that has at least one card.
+// Clicking a chip narrows the grid to only that emotion. Clicking "All" resets it.
+//
+// Clicking any card triggers the shared FocusedCard overlay (managed in App.jsx),
+// the same as ScatterView — consistent behaviour across both views.
+//
+// Props:
+//   memories      — full list of memory card objects
+//   onFocus       — called with a card ID when a card is clicked
+//   activeEmotion — the currently selected filter emotion, or null for all
+//   setActiveEmotion — updates the active filter
+//   newCardId     — ID of the most recently added card (gets highlight badge)
+//   dissolveId    — ID of the previously new card (highlight fades out)
 
 import '../css/category.css'
 import Card from './Card'

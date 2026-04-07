@@ -1,3 +1,10 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   toggle.css — App header, view toggle, and floating action button (FAB)
+───────────────────────────────────────────────────────────────────────────── */
+
+/* Fixed header bar — sits above everything, transparent background so the
+   canvas shows through. pointer-events: none lets clicks pass through to the
+   canvas; individual interactive elements re-enable pointer-events. */
 .app-header {
   position: fixed;
   top: 0;
@@ -11,6 +18,7 @@
   pointer-events: none;
 }
 
+/* App name in the top-left corner */
 .app-wordmark {
   font-family: var(--font-title);
   font-style: italic;
@@ -19,9 +27,10 @@
   pointer-events: auto;
 }
 
+/* Small label beneath the toggle — hints the user to switch views */
 .view-toggle-hint {
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 6px); /* sits just below the header */
   right: 28px;
   font-family: var(--font-body);
   font-size: 10px;
@@ -33,6 +42,7 @@
   pointer-events: none;
 }
 
+/* Pill container holding the scatter / emotions toggle buttons */
 .view-toggle {
   display: flex;
   gap: 2px;
@@ -52,11 +62,13 @@
   transition: background 0.15s, color 0.15s;
 }
 
+/* Active view — highlighted pill */
 .toggle-btn.active {
   background: rgba(255,255,255,0.1);
   color: var(--color-text);
 }
 
+/* Floating action button (the + button) — always visible bottom-right */
 .fab {
   position: fixed;
   bottom: 32px;
@@ -65,7 +77,7 @@
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: var(--color-text);
+  background: var(--color-text); /* light button on dark canvas */
   color: #0E0E0E;
   font-size: 26px;
   display: flex;
@@ -79,12 +91,14 @@
   transform: scale(1.08);
 }
 
-/* Main content area fills full viewport height */
+/* Main content area — fills the full viewport so the scatter/filter views
+   have the whole screen to work with */
 main {
   width: 100%;
   height: 100vh;
 }
 
+/* ── Mobile adjustments ──────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .app-header {
     padding: 14px 16px;

@@ -1,4 +1,12 @@
-/* Backdrop */
+/* ─────────────────────────────────────────────────────────────────────────────
+   focused.css — Styles for the FocusedCard overlay
+   When a card is clicked, FocusedCard renders as a fixed overlay on top of
+   everything. It has two faces (front/back) and flips on click using CSS 3D.
+   It is rendered at the App level to avoid CSS containing block issues
+   caused by will-change: transform on the scatter canvas.
+───────────────────────────────────────────────────────────────────────────── */
+
+/* Backdrop — dimmed blur behind the focused card. Clicking it closes the card. */
 .focused-backdrop {
   position: fixed;
   inset: 0;

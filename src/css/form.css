@@ -1,3 +1,9 @@
+/* ─────────────────────────────────────────────────────────────────────────────
+   form.css — Add / Edit memory card modal
+   The modal overlays the whole screen. Clicking outside the form closes it.
+   Emotion pills use CSS ::after pseudo-elements for emotion-coloured glow bars.
+───────────────────────────────────────────────────────────────────────────── */
+
 .modal-overlay {
   position: fixed;
   inset: 0;
