@@ -88,6 +88,31 @@
 .emotion-chip.color-chip-anger::before        { background: var(--grad-anger); }
 .emotion-chip.color-chip-anticipation::before { background: var(--grad-anticipation); }
 
+@media (max-width: 768px) {
+  .category-view {
+    padding: 70px 16px 40px;
+  }
+
+  .category-heading {
+    font-size: 22px;
+    margin-bottom: 16px;
+  }
+
+  .category-cards {
+    gap: 14px;
+  }
+
+  .emotion-filter-bar {
+    gap: 6px;
+    margin-bottom: 24px;
+  }
+
+  .emotion-chip {
+    font-size: 11px;
+    padding: 5px 11px;
+  }
+}
+
 .emotion-chip.active {
   background: rgba(255,255,255,0.12);
   color: var(--color-text);

@@ -62,8 +62,9 @@ input, textarea, select {
 /* Mobile responsiveness */
 @media (max-width: 768px) {
   :root {
-    --card-width: 160px;
-    --card-height: 220px;
+    --card-width: 150px;
+    --card-height: 210px;
+    --card-radius: 14px;
   }
 }
 

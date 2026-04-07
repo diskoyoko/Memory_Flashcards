@@ -267,6 +267,31 @@
   color: #E8291C;
 }
 
+@media (max-width: 768px) {
+  .modal {
+    padding: 24px 20px;
+    width: calc(100vw - 32px);
+    max-width: 100%;
+    border-radius: 16px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .primary-emotion-pills {
+    gap: 6px;
+  }
+
+  .emotion-pill {
+    padding: 7px 13px;
+    font-size: 12px;
+  }
+
+  .emotion-pill.sub {
+    padding: 5px 11px;
+    font-size: 11px;
+  }
+}
+
 /* form actions */
 .form-actions {
   display: flex;

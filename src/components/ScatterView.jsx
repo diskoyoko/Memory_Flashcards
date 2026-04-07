@@ -75,8 +75,30 @@ export default function ScatterView({ memories, focused, onFocus }) {
       document.body.style.cursor = ''
     }
 
+    // Touch support for panning on mobile
+    function onTouchMove(e) {
+      const touch = e.touches[0]
+      if (dragStart.current) {
+        e.preventDefault()
+        const dx = touch.clientX - dragStart.current.mouseX
+        const dy = touch.clientY - dragStart.current.mouseY
+        dragDist.current = Math.hypot(dx, dy)
+        panRef.current = {
+          x: dragStart.current.panX + dx,
+          y: dragStart.current.panY + dy,
+        }
+        setPan({ ...panRef.current })
+      }
+    }
+
+    function onTouchEnd() {
+      dragStart.current = null
+    }
+
     window.addEventListener('mousemove', onMouseMove)
     window.addEventListener('mouseup', onMouseUp)
+    window.addEventListener('touchmove', onTouchMove, { passive: false })
+    window.addEventListener('touchend', onTouchEnd)
 
     function tick() {
       parallaxCurrent.current.x += (parallaxTarget.current.x - parallaxCurrent.current.x) * 0.06
