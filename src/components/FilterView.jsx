@@ -9,8 +9,8 @@ import Card from './Card'
 import { PRIMARY_EMOTIONS, emotionToColor } from '../data/seed'
 
 export default function FilterView({
-  memories, focused, flipped, onFocus, onFlip, onEdit, onDelete,
-  activeEmotion, setActiveEmotion,
+  memories, onFocus,
+  activeEmotion, setActiveEmotion, newCardId, dissolveId,
 }) {
   // Only show primary emotions that have at least one card
   const usedEmotions = PRIMARY_EMOTIONS.filter(e =>
@@ -52,21 +52,15 @@ export default function FilterView({
         </div>
       ) : (
         <div className="category-cards">
-          {visible.map(m => {
-            const isFocused = focused === m.id
-            return (
-              <Card
-                key={m.id}
-                memory={m}
-                focused={isFocused}
-                flipped={isFocused && flipped}
-                onFocus={() => onFocus(m.id)}
-                onFlip={onFlip}
-                onEdit={() => onEdit(m)}
-                onDelete={() => onDelete(m.id)}
-              />
-            )
-          })}
+          {visible.map(m => (
+            <Card
+              key={m.id}
+              memory={m}
+              onFocus={() => onFocus(m.id)}
+              isNew={m.id === newCardId}
+              isDissolving={m.id === dissolveId}
+            />
+          ))}
         </div>
       )}
 

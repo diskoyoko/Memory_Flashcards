@@ -18,6 +18,10 @@ export default function App() {
 
   // ID of the focused card, or null
   const [focused, setFocused] = useState(null)
+  // ID of the most recently added card — stays until the next card is added
+  const [newCardId, setNewCardId] = useState(null)
+  // Previous new card id — gets a dissolve animation when replaced
+  const [dissolveId, setDissolveId] = useState(null)
   // Whether the focused card is flipped to show back
   const [flipped, setFlipped] = useState(false)
   // Layout mode
@@ -44,8 +48,17 @@ export default function App() {
   function openEdit(card)  { dismiss(); setModal({ edit: card }) }
 
   function handleSave(data) {
-    if (modal === 'add') addMemory(data)
-    else if (modal?.edit) updateMemory(modal.edit.id, data)
+    if (modal === 'add') {
+      const id = addMemory(data)
+      // Move current highlight to dissolve, set new highlight
+      if (newCardId) {
+        setDissolveId(newCardId)
+        setTimeout(() => setDissolveId(null), 1000)
+      }
+      setNewCardId(id)
+    } else if (modal?.edit) {
+      updateMemory(modal.edit.id, data)
+    }
     setModal(null)
   }
 
@@ -57,10 +70,10 @@ export default function App() {
   const focusedMemory = focused ? memories.find(m => m.id === focused) : null
 
   const filterProps = {
-    memories, focused, flipped,
-    onFocus: focus, onFlip: flip,
-    onEdit: openEdit, onDelete: handleDelete,
+    memories,
+    onFocus: focus,
     activeEmotion, setActiveEmotion,
+    newCardId, dissolveId,
   }
 
   return (
@@ -81,11 +94,12 @@ export default function App() {
             emotions
           </button>
         </nav>
+        <span className="view-toggle-hint">switch view</span>
       </header>
 
       <main role="main">
         {view === 'scatter'
-          ? <ScatterView memories={memories} focused={focused} onFocus={focus} />
+          ? <ScatterView memories={memories} focused={focused} onFocus={focus} newCardId={newCardId} dissolveId={dissolveId} />
           : <FilterView {...filterProps} />
         }
       </main>

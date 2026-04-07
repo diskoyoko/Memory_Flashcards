@@ -19,6 +19,20 @@
   pointer-events: auto;
 }
 
+.view-toggle-hint {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 28px;
+  font-family: var(--font-body);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
 .view-toggle {
   display: flex;
   gap: 2px;

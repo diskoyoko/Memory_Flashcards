@@ -62,12 +62,25 @@
 }
 
 .canvas-subtitle {
-  font-family: var(--font-title);
-  font-style: italic;
-  font-size: clamp(16px, 1.8vw, 22px);
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: clamp(11px, 1.1vw, 14px);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 232, 0.7);
+  line-height: 1.6;
+}
+
+.canvas-instructions {
+  font-family: var(--font-body);
+  font-style: normal;
+  font-size: clamp(10px, 0.85vw, 12px);
   font-weight: 400;
-  color: rgba(240, 237, 232, 0.6);
-  line-height: 1.5;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(240, 237, 232, 0.38);
+  line-height: 1.6;
 }
 
 .canvas-drag-hint {
@@ -75,7 +88,7 @@
   font-size: 11px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: rgba(240, 237, 232, 0.3);
+  color: rgba(240, 237, 232, 0.5);
   margin-top: 8px;
   animation: hintPulse 2.5s ease-in-out infinite;
 }
@@ -93,6 +106,40 @@
   cursor: pointer;
 }
 
+/* New card always on top of all other scatter cards */
+.scatter-card-shell.card-just-added {
+  z-index: 10;
+}
+
+/* ── New card added animation ───────────────────────────────────────────── */
+/* Entry: card pops in from slightly below with a spring */
+.scatter-card-shell.card-just-added {
+  animation: cardDropIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes cardDropIn {
+  0%   { opacity: 0; transform: translate(-50%, -40%) rotate(var(--rot, 0deg)) scale(0.75); }
+  100% { opacity: 1; transform: translate(-50%, -50%) rotate(var(--rot, 0deg)) scale(1); }
+}
+
+/* Persistent glow that stays until next card is added */
+.scatter-card-shell.card-just-added .scatter-card-face {
+  box-shadow: 0 0 0 2px rgba(255,255,255,0.55), 0 0 32px rgba(255,255,255,0.22);
+  animation: newCardFlash 0.7s ease-out forwards;
+}
+
+@keyframes newCardFlash {
+  0%   { filter: brightness(1.8); }
+  100% { filter: brightness(1.0); }
+}
+
+/* Dissolve: glow fades out when replaced by a newer card */
+.scatter-card-shell.card-dissolving .scatter-card-face {
+  box-shadow: none;
+  filter: brightness(1);
+  transition: box-shadow 0.8s ease, filter 0.8s ease;
+}
+
 /* Hover glow — brightens and lifts */
 .scatter-card-shell:hover .scatter-card-face {
   filter: brightness(1.2) saturate(1.15) drop-shadow(0 0 20px rgba(255,255,255,0.2));
@@ -101,6 +148,7 @@
 
 /* The visual card face shown in scatter view */
 .scatter-card-face {
+  position: relative;
   width: 100%;
   height: 100%;
   border-radius: var(--card-radius);

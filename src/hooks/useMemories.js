@@ -39,10 +39,9 @@ export function useMemories() {
   }, [memories])
 
   function addMemory(data) {
-    setMemories(prev => [
-      { ...data, id: nanoid(), createdAt: Date.now() },
-      ...prev,
-    ])
+    const id = nanoid()
+    setMemories(prev => [{ ...data, id, createdAt: Date.now() }, ...prev])
+    return id
   }
 
   function updateMemory(id, data) {

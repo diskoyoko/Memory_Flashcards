@@ -28,8 +28,10 @@
   position: relative;
   top: auto !important;
   left: auto !important;
-  transform: none !important;
-  flex-shrink: 0;
+  flex: 0 0 var(--card-width) !important;
+  width: var(--card-width) !important;
+  height: var(--card-height) !important;
+  transform: none;
 }
 
 .category-view .card-wrapper:hover {
