@@ -1,21 +1,37 @@
 .card-wrapper {
-  position: absolute;
+  position: relative;
   width: var(--card-width);
   height: var(--card-height);
   cursor: pointer;
-  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-              top 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-              left 0.5s cubic-bezier(0.23, 1, 0.32, 1),
-              z-index 0s;
+  /* Hover glow — brightens the card and lifts it */
+  transition: filter 0.35s ease, transform 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Scatter shell handles positioning; card-wrapper sits inside */
+.scatter-card-shell .card-wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Light up on hover — soft white bloom */
+.scatter-card-shell:hover .card-wrapper:not(.focused) {
+  filter: brightness(1.18) saturate(1.15) drop-shadow(0 0 18px rgba(255,255,255,0.18));
+  transform: scale(1.04);
 }
 
 .card-wrapper.focused {
-  position: fixed;
+  position: fixed !important;
   top: 50% !important;
   left: 50% !important;
-  transform: translate(-50%, -50%) rotate(0deg) scale(1.1) !important;
-  z-index: 100;
+  width: 300px !important;
+  height: 420px !important;
+  transform: translate(-50%, -50%) !important;
+  z-index: 200;
   cursor: default;
+  filter: none !important;
+  transition: width 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              height 0.4s cubic-bezier(0.23, 1, 0.32, 1),
+              transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
 /* 3D flip container */
@@ -50,12 +66,14 @@
   padding: 24px 20px;
 }
 
-.card-front.color-crimson { background: var(--grad-crimson); }
-.card-front.color-mauve   { background: var(--grad-mauve); }
-.card-front.color-beige   { background: var(--grad-beige); }
-.card-front.color-orange  { background: var(--grad-orange); }
-.card-front.color-forest  { background: var(--grad-forest); }
-.card-front.color-pink    { background: var(--grad-pink); }
+.card-front.color-joy          { background: var(--grad-joy); }
+.card-front.color-trust        { background: var(--grad-trust); }
+.card-front.color-fear         { background: var(--grad-fear); }
+.card-front.color-surprise     { background: var(--grad-surprise); }
+.card-front.color-sadness      { background: var(--grad-sadness); }
+.card-front.color-disgust      { background: var(--grad-disgust); }
+.card-front.color-anger        { background: var(--grad-anger); }
+.card-front.color-anticipation { background: var(--grad-anticipation); }
 
 .card-title {
   font-family: var(--font-title);
@@ -85,11 +103,21 @@
   gap: 12px;
 }
 
-.card-back-category {
-  font-size: 10px;
+/* Emotion chips row on card back */
+.card-emotions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.card-emotion-chip {
+  font-size: 9px;
   font-weight: 500;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
   color: var(--color-text-muted);
 }
 

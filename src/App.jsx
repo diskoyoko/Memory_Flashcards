@@ -3,26 +3,25 @@ import './css/global.css'
 import './css/toggle.css'
 import { useMemories } from './hooks/useMemories'
 import ScatterView from './components/ScatterView'
-import CategoryView from './components/CategoryView'
+import FilterView from './components/FilterView'
+import FocusedCard from './components/FocusedCard'
 import CardForm from './components/CardForm'
 
 export default function App() {
-  // All memory card data — persisted to localStorage via the hook
   const { memories, addMemory, updateMemory, deleteMemory } = useMemories()
 
-  // Which card is currently centered on screen (by id), or null if none
+  // ID of the focused card, or null
   const [focused, setFocused] = useState(null)
-
-  // Whether the focused card is showing its back face
+  // Whether the focused card is flipped to show back
   const [flipped, setFlipped] = useState(false)
-
-  // Layout mode: 'scatter' (free placement) or 'category' (grouped by emotion)
+  // Layout mode
   const [view, setView] = useState('scatter')
-
-  // Modal state: null = closed, 'add' = new card form, { edit: card } = edit form
+  // Emotion filter (filter view only)
+  const [activeEmotion, setActiveEmotion] = useState(null)
+  // Modal: null | 'add' | { edit: card }
   const [modal, setModal] = useState(null)
 
-  // Allow keyboard users to dismiss a focused card with Escape
+  // Dismiss focused card on Escape
   useEffect(() => {
     function onKey(e) {
       if (e.key === 'Escape') dismiss()
@@ -31,39 +30,16 @@ export default function App() {
     return () => window.removeEventListener('keydown', onKey)
   }, [])
 
-  // Center a card on screen and reset its flip state
-  function focus(id) {
-    setFocused(id)
-    setFlipped(false)
-  }
+  function focus(id) { setFocused(id); setFlipped(false) }
+  function dismiss()  { setFocused(null); setFlipped(false) }
+  function flip()     { setFlipped(f => !f) }
 
-  // Return the focused card to its original position
-  function dismiss() {
-    setFocused(null)
-    setFlipped(false)
-  }
+  function openAdd()       { dismiss(); setModal('add') }
+  function openEdit(card)  { dismiss(); setModal({ edit: card }) }
 
-  // Toggle between front and back of the focused card
-  function flip() {
-    setFlipped(f => !f)
-  }
-
-  function openAdd() {
-    dismiss()
-    setModal('add')
-  }
-
-  function openEdit(card) {
-    setModal({ edit: card })
-  }
-
-  // Handle both create and update from the shared CardForm
   function handleSave(data) {
-    if (modal === 'add') {
-      addMemory(data)
-    } else if (modal?.edit) {
-      updateMemory(modal.edit.id, data)
-    }
+    if (modal === 'add') addMemory(data)
+    else if (modal?.edit) updateMemory(modal.edit.id, data)
     setModal(null)
   }
 
@@ -72,71 +48,56 @@ export default function App() {
     dismiss()
   }
 
-  // Props shared across both view components
-  const sharedProps = {
-    memories,
-    focused,
-    flipped,
-    onFocus: focus,
-    onFlip: flip,
-    onEdit: openEdit,
-    onDelete: handleDelete,
+  const focusedMemory = focused ? memories.find(m => m.id === focused) : null
+
+  const filterProps = {
+    memories, focused, flipped,
+    onFocus: focus, onFlip: flip,
+    onEdit: openEdit, onDelete: handleDelete,
+    activeEmotion, setActiveEmotion,
   }
 
   return (
     <>
-      {/* Top navigation bar — wordmark + view toggle */}
       <header className="app-header" role="banner">
-        <span className="app-wordmark" aria-label="Humain — Memory Cards">humain</span>
+        <span className="app-wordmark">fragments of memory</span>
         <nav className="view-toggle" aria-label="View mode">
           <button
             className={`toggle-btn${view === 'scatter' ? ' active' : ''}`}
-            aria-pressed={view === 'scatter'}
             onClick={() => { setView('scatter'); dismiss() }}
           >
             scatter
           </button>
           <button
-            className={`toggle-btn${view === 'category' ? ' active' : ''}`}
-            aria-pressed={view === 'category'}
-            onClick={() => { setView('category'); dismiss() }}
+            className={`toggle-btn${view === 'filter' ? ' active' : ''}`}
+            onClick={() => { setView('filter'); dismiss() }}
           >
-            category
+            emotions
           </button>
         </nav>
       </header>
 
-      {/* Dimmed overlay behind a focused card — click to dismiss */}
-      {focused && (
-        <div
-          className="overlay-dismiss"
-          onClick={dismiss}
-          aria-label="Close card"
-          role="button"
-          tabIndex={0}
-          onKeyDown={e => e.key === 'Enter' && dismiss()}
-        />
-      )}
-
-      {/* Main view — switches between scatter and category layout */}
       <main role="main">
         {view === 'scatter'
-          ? <ScatterView {...sharedProps} />
-          : <CategoryView {...sharedProps} />
+          ? <ScatterView memories={memories} focused={focused} onFocus={focus} />
+          : <FilterView {...filterProps} />
         }
       </main>
 
-      {/* Floating action button to add a new memory */}
-      <button
-        className="fab"
-        onClick={openAdd}
-        aria-label="Add new memory"
-        title="Add new memory"
-      >
-        +
-      </button>
+      {/* Focused card overlay — appears on top of everything, no position conflict */}
+      {focusedMemory && (
+        <FocusedCard
+          memory={focusedMemory}
+          flipped={flipped}
+          onFlip={flip}
+          onEdit={openEdit}
+          onDelete={handleDelete}
+          onDismiss={dismiss}
+        />
+      )}
 
-      {/* Add / Edit modal — rendered only when open */}
+      <button className="fab" onClick={openAdd} aria-label="Add new memory" title="Add new memory">+</button>
+
       {modal && (
         <CardForm
           initial={modal?.edit ?? null}

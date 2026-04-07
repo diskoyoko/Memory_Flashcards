@@ -1,29 +1,59 @@
-# Humain — Memory Cards
+# Fragmented Memory Cards
 
 ## 1. Project Overview
 
-Memory Cards is a single-page web application that allows users to capture, store, and revisit personal memories through an interactive flashcard system.
+Humain — Memory Cards is a single-page web application that allows users to capture and revisit personal memories through an interactive flashcard system.
 
-Instead of traditional flashcards used for studying, this system reinterprets flashcards as memory containers. Each card represents a moment in time, paired with an emotional category that reflects how the memory was experienced.
+The project is built around the idea that memories are not stored as linear records, but as fragmented moments that are recalled through triggers. To reflect this, memory cards are presented in a scattered layout, allowing users to explore them non-linearly, similar to how memories surface in the mind.
 
-The application presents memories as scattered fragments across the screen, allowing users to explore them non-linearly, similar to how memories are recalled in real life.
+Each card represents a memory and is paired with an emotional category, enabling users to associate not only what happened, but how it felt. Through simple interactions such as selecting, flipping, and organizing cards, the system acts as a personal archive where users can revisit past experiences.
+
+This version focuses on a minimal working system for capturing and interacting with memories. Future iterations may expand the archive through additional features such as image attachments, audio recordings, and a more nuanced emotional tagging system.
 
 ---
 
 ## 2. Problem Statement
 
-Memories are inherently fragmented and unstable. Over time, they fade, distort, or become inaccessible. While some memories remain vivid, others are difficult to recall without a trigger.
+Memories are inherently fragile and fragmented. Over time, they can fade, lose clarity, or become difficult to access without a trigger. While some moments remain vivid, many others are gradually forgotten or disconnected from their original emotional context.
 
-This project addresses the problem of memory loss and emotional disconnection by allowing users to:
-- capture memories in a structured way
-- associate them with emotions
-- revisit them through interaction
+Existing digital tools tend to store memories as static records (such as notes or photos), but often fail to capture the emotional dimension that gives those memories meaning.
 
-By tagging memories with emotional states, the system enables users to reconnect with past experiences not just through information, but through feeling.
+This project addresses that gap by allowing users to record memories alongside emotional categories. By linking memories to how they were felt, the system enables users to revisit past experiences in a more reflective and affective way.
+
+Through interaction with memory cards, users are not only recalling information, but re-engaging with the emotional states attached to those moments, using memory as a trigger for feeling rather than just recollection.
 
 ---
 
-## 3. Technical Stack
+## 3. User Journey Overview
+
+The user journey is designed to reflect how memories are experienced — non-linear, fragmented, and often triggered through interaction rather than direct search.
+
+### Entry — Encountering Memory Fragments
+When users enter the page, they are presented with a scattered layout of memory cards across the screen. This visual arrangement represents the fragmented nature of memory, where moments exist as disconnected pieces rather than a structured timeline.
+
+Users can visually scan and select any card that draws their attention, simulating how certain memories surface unexpectedly.
+
+### Interaction — Focusing and Revealing
+Clicking on a card brings it into focus at the center of the screen. The front of the card displays a title and color, acting as a soft cue or trigger.
+
+Clicking again flips the card to reveal the memory content on the back, including its emotional category and tags. This interaction mimics the process of recalling a memory — from a vague cue to a more detailed recollection.
+
+### Reflection — Reconnecting Through Emotion
+By reading the memory and its associated emotional category, users are able to reconnect not only with the event, but with how it felt at that moment.
+
+The system emphasizes emotional recall, allowing users to revisit experiences through feeling rather than just factual detail.
+
+### Contribution — Capturing New Memories
+Users can add new memory cards through a simple input form. They record the memory text, assign an emotional category, and provide contextual tags.
+
+This process encourages intentional reflection, turning everyday experiences into stored fragments within the archive.
+
+### Organisation — Structuring the Fragments
+Users can switch from scatter view to category view, where memories are grouped by emotional categories.
+
+This provides a structured perspective of their emotional landscape, allowing patterns across memories to emerge while still preserving the fragmented nature of the original interaction.
+
+## 4. Technical Stack
 
 ### Frontend
 - **React 18** — component-based UI, all views and interactions built as React components
@@ -50,7 +80,7 @@ By tagging memories with emotional states, the system enables users to reconnect
 
 ---
 
-## 4. Features
+## 5. Features
 
 - Single-page application (SPA) — no page reloads at any point
 - Create, Read, Update, Delete (CRUD) memory cards
@@ -68,7 +98,7 @@ By tagging memories with emotional states, the system enables users to reconnect
 
 ---
 
-## 5. Folder Structure
+## 6. Folder Structure
 
 ```
 project-root/
@@ -103,7 +133,7 @@ project-root/
 
 ---
 
-## 6. Challenges and Solutions
+## 7. Challenges and Solutions
 
 One of the main challenges was translating an abstract concept — fragmented memory and emotion — into a functional and structured system. Balancing emotional expression with clear data structure required simplifying the model into a single main category (emotion) and flexible tags.
 
@@ -115,7 +145,7 @@ Managing the focused, flipped, and modal states across the app without a state m
 
 ---
 
-## 7. Future Improvements
+## 8. Future Improvements
 
 This project represents the first version of a larger concept.
 

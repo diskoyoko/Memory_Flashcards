@@ -1,0 +1,144 @@
+/* Backdrop */
+.focused-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.3s ease forwards;
+}
+
+/* Card container — scales in from center */
+.focused-card-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 300px;
+  height: 420px;
+  z-index: 100;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.focused-card-container.flipped {
+  animation: none; /* don't re-run entry animation on flip */
+  transform: translate(-50%, -50%) rotateY(180deg);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.focused-card-container:not(.flipped) {
+  transform: translate(-50%, -50%) rotateY(0deg);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* Faces */
+.focused-face {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* FRONT */
+.focused-front {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 32px 28px;
+}
+
+.focused-front.color-joy          { background: var(--grad-joy); }
+.focused-front.color-trust        { background: var(--grad-trust); }
+.focused-front.color-fear         { background: var(--grad-fear); }
+.focused-front.color-surprise     { background: var(--grad-surprise); }
+.focused-front.color-sadness      { background: var(--grad-sadness); }
+.focused-front.color-disgust      { background: var(--grad-disgust); }
+.focused-front.color-anger        { background: var(--grad-anger); }
+.focused-front.color-anticipation { background: var(--grad-anticipation); }
+
+.focused-badge {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.6);
+  margin-bottom: 10px;
+}
+
+.focused-title {
+  font-family: var(--font-title);
+  font-size: 28px;
+  line-height: 1.2;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.25);
+}
+
+.focused-hint {
+  margin-top: 16px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.4);
+  letter-spacing: 0.08em;
+}
+
+/* BACK */
+.focused-back {
+  transform: rotateY(180deg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  padding: 28px;
+  gap: 16px;
+  cursor: default;
+}
+
+.focused-sub-emotions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.focused-sub-chip {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 10px;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,0.15);
+  color: var(--color-text-muted);
+}
+
+.focused-content {
+  flex: 1;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--color-text);
+  overflow-y: auto;
+}
+
+.focused-actions {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+/* Entry animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes popIn {
+  from {
+    transform: translate(-50%, -50%) scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}

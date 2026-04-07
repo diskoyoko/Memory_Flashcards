@@ -21,13 +21,15 @@
   --font-title: 'Instrument Serif', serif;
   --font-body: 'Inter', sans-serif;
 
-  /* card gradients */
-  --grad-crimson: linear-gradient(160deg, #E8291C 0%, #6B0D0D 100%);
-  --grad-mauve:   linear-gradient(160deg, #C9A8E0 0%, #8DB4D4 100%);
-  --grad-beige:   linear-gradient(160deg, #D4C5A9 0%, #C87941 100%);
-  --grad-orange:  linear-gradient(160deg, #E8831C 0%, #C8231C 100%);
-  --grad-forest:  linear-gradient(160deg, #2E7D52 0%, #0D2B1A 100%);
-  --grad-pink:    linear-gradient(160deg, #D4A8C0 0%, #C4A890 100%);
+  /* ── 8 gradients mapped to Plutchik's wheel + your dark aesthetic ── */
+  --grad-joy:          linear-gradient(160deg, #E8D84A 0%, #C4920A 100%);
+  --grad-trust:        linear-gradient(160deg, #52C96E 0%, #1A5C3A 100%);
+  --grad-fear:         linear-gradient(160deg, #2E7D52 0%, #071A0E 100%);
+  --grad-surprise:     linear-gradient(160deg, #7EC8E3 0%, #2D7A9A 100%);
+  --grad-sadness:      linear-gradient(160deg, #7B8FD4 0%, #1E2760 100%);
+  --grad-disgust:      linear-gradient(160deg, #C95BA5 0%, #5E1A50 100%);
+  --grad-anger:        linear-gradient(160deg, #E8291C 0%, #6B0D0D 100%);
+  --grad-anticipation: linear-gradient(160deg, #E8831C 0%, #7A3A00 100%);
 }
 
 html, body, #root {

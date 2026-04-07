@@ -69,37 +69,151 @@
   background: #1A1A1A;
 }
 
-/* color picker */
-.color-picker {
+/* ── Emotion pill buttons (primary + sub) ───────────────────────────────── */
+/* Inspired by: pill selection UI — dark base, glow on selected */
+.primary-emotion-pills {
   display: flex;
-  gap: 10px;
   flex-wrap: wrap;
+  gap: 8px;
 }
 
-.color-swatch {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid transparent;
+/* Base pill — all emotions and sub-emotions share this */
+.emotion-pill {
+  padding: 9px 18px;
+  border-radius: 50px;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
   cursor: pointer;
-  transition: transform 0.15s, border-color 0.15s;
+  transition: color 0.2s, background 0.2s, box-shadow 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
 }
 
-.color-swatch:hover {
-  transform: scale(1.1);
+.emotion-pill:hover {
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.1);
 }
 
-.color-swatch.selected {
-  border-color: #fff;
-  transform: scale(1.1);
+/* Selected state — emotion-specific glow from bottom (like the reference image) */
+.emotion-pill.selected {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+  border-color: rgba(255,255,255,0.18);
 }
 
-.color-swatch.crimson { background: var(--grad-crimson); }
-.color-swatch.mauve   { background: var(--grad-mauve); }
-.color-swatch.beige   { background: var(--grad-beige); }
-.color-swatch.orange  { background: var(--grad-orange); }
-.color-swatch.forest  { background: var(--grad-forest); }
-.color-swatch.pink    { background: var(--grad-pink); }
+/* The glow is a ::after pseudo-element at the bottom of each pill */
+.emotion-pill.selected::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  border-radius: 2px;
+  opacity: 0.9;
+}
+
+/* Glow colours per primary emotion */
+.emotion-pill.color-joy.selected          { box-shadow: 0 0 16px rgba(232,216,74,0.3); }
+.emotion-pill.color-joy.selected::after   { background: var(--grad-joy); }
+
+.emotion-pill.color-trust.selected        { box-shadow: 0 0 16px rgba(82,201,110,0.3); }
+.emotion-pill.color-trust.selected::after { background: var(--grad-trust); }
+
+.emotion-pill.color-fear.selected         { box-shadow: 0 0 16px rgba(46,125,82,0.3); }
+.emotion-pill.color-fear.selected::after  { background: var(--grad-fear); }
+
+.emotion-pill.color-surprise.selected         { box-shadow: 0 0 16px rgba(126,200,227,0.3); }
+.emotion-pill.color-surprise.selected::after  { background: var(--grad-surprise); }
+
+.emotion-pill.color-sadness.selected         { box-shadow: 0 0 16px rgba(123,143,212,0.3); }
+.emotion-pill.color-sadness.selected::after  { background: var(--grad-sadness); }
+
+.emotion-pill.color-disgust.selected         { box-shadow: 0 0 16px rgba(201,91,165,0.3); }
+.emotion-pill.color-disgust.selected::after  { background: var(--grad-disgust); }
+
+.emotion-pill.color-anger.selected         { box-shadow: 0 0 16px rgba(232,41,28,0.35); }
+.emotion-pill.color-anger.selected::after  { background: var(--grad-anger); }
+
+.emotion-pill.color-anticipation.selected         { box-shadow: 0 0 16px rgba(232,131,28,0.3); }
+.emotion-pill.color-anticipation.selected::after  { background: var(--grad-anticipation); }
+
+/* Sub-emotion pills (same base, smaller glow) */
+.emotion-pill.sub {
+  font-size: 12px;
+  padding: 7px 14px;
+}
+
+.emotion-pill.sub.selected-sub {
+  color: #fff;
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(255,255,255,0.22);
+  box-shadow: 0 0 10px rgba(255,255,255,0.1);
+}
+
+/* Emotion suggestion dropdown */
+.emotion-suggestions {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 48px;
+  background: #222;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  z-index: 300;
+}
+
+.emotion-suggestion-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 9px 14px;
+  font-size: 13px;
+  color: var(--color-text-muted);
+  transition: background 0.1s, color 0.1s;
+}
+
+.emotion-suggestion-item:hover {
+  background: rgba(255,255,255,0.07);
+  color: var(--color-text);
+}
+
+/* Colour preview row below emotion chips */
+.color-preview-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+}
+
+.color-preview-swatch {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.color-preview-swatch.crimson { background: var(--grad-crimson); }
+.color-preview-swatch.mauve   { background: var(--grad-mauve); }
+.color-preview-swatch.beige   { background: var(--grad-beige); }
+.color-preview-swatch.orange  { background: var(--grad-orange); }
+.color-preview-swatch.forest  { background: var(--grad-forest); }
+.color-preview-swatch.pink    { background: var(--grad-pink); }
+
+.color-preview-label {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}
+
+/* Emotion chips in form (colored border hint) */
+.emotion-chip-preview {
+  border-color: rgba(255,255,255,0.2);
+}
 
 /* tags input */
 .tags-input-row {

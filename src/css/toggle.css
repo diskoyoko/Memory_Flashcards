@@ -65,6 +65,12 @@
   transform: scale(1.08);
 }
 
+/* Main content area fills full viewport height */
+main {
+  width: 100%;
+  height: 100vh;
+}
+
 .overlay-dismiss {
   position: fixed;
   inset: 0;

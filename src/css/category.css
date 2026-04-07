@@ -42,3 +42,54 @@
   left: 50% !important;
   transform: translate(-50%, -50%) scale(1.1) !important;
 }
+
+/* ── Emotion filter bar ──────────────────────────────────────────────────── */
+.emotion-filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.emotion-chip {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  background: none;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.emotion-chip:hover {
+  background: rgba(255,255,255,0.06);
+  color: var(--color-text);
+}
+
+/* Coloured dot on emotion filter chips */
+.emotion-chip[class*="color-chip-"]::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.emotion-chip.color-chip-joy::before          { background: var(--grad-joy); }
+.emotion-chip.color-chip-trust::before        { background: var(--grad-trust); }
+.emotion-chip.color-chip-fear::before         { background: var(--grad-fear); }
+.emotion-chip.color-chip-surprise::before     { background: var(--grad-surprise); }
+.emotion-chip.color-chip-sadness::before      { background: var(--grad-sadness); }
+.emotion-chip.color-chip-disgust::before      { background: var(--grad-disgust); }
+.emotion-chip.color-chip-anger::before        { background: var(--grad-anger); }
+.emotion-chip.color-chip-anticipation::before { background: var(--grad-anticipation); }
+
+.emotion-chip.active {
+  background: rgba(255,255,255,0.12);
+  color: var(--color-text);
+  border-color: rgba(255,255,255,0.3);
+}

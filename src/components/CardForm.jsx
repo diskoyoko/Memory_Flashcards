@@ -1,42 +1,38 @@
 import { useState } from 'react'
 import '../css/form.css'
-import { CATEGORIES, COLORS } from '../data/seed'
-
-const COLOR_KEYS = Object.keys(COLORS)
+import { PRIMARY_EMOTIONS, SUB_EMOTIONS, emotionToColor } from '../data/seed'
 
 export default function CardForm({ initial, onSave, onClose }) {
-  const [title, setTitle]       = useState(initial?.title ?? '')
-  const [color, setColor]       = useState(initial?.color ?? 'mauve')
-  const [content, setContent]   = useState(initial?.content ?? '')
-  const [category, setCategory] = useState(initial?.category ?? CATEGORIES[0])
-  const [tags, setTags]         = useState(initial?.tags ?? [])
-  const [tagInput, setTagInput] = useState('')
+  const [title, setTitle]             = useState(initial?.title ?? '')
+  const [content, setContent]         = useState(initial?.content ?? '')
+  const [primaryEmotion, setPrimary]  = useState(initial?.primaryEmotion ?? '')
+  const [subEmotions, setSubEmotions] = useState(initial?.subEmotions ?? [])
 
-  function addTag() {
-    const t = tagInput.trim().toLowerCase().replace(/\s+/g, '-')
-    if (t && !tags.includes(t)) setTags(prev => [...prev, t])
-    setTagInput('')
+  function selectPrimary(name) {
+    setPrimary(name)
+    setSubEmotions([])
   }
 
-  function removeTag(t) {
-    setTags(prev => prev.filter(x => x !== t))
-  }
-
-  function handleTagKeyDown(e) {
-    if (e.key === 'Enter') { e.preventDefault(); addTag() }
+  function toggleSub(sub) {
+    setSubEmotions(prev =>
+      prev.includes(sub) ? prev.filter(s => s !== sub) : [...prev, sub]
+    )
   }
 
   function handleSubmit(e) {
     e.preventDefault()
-    if (!title.trim() || !content.trim()) return
-    onSave({ title: title.trim(), color, content: content.trim(), category, tags })
+    if (!title.trim() || !content.trim() || !primaryEmotion) return
+    onSave({ title: title.trim(), content: content.trim(), primaryEmotion, subEmotions, tags: [] })
   }
+
+  const availableSubs = primaryEmotion ? SUB_EMOTIONS[primaryEmotion] ?? [] : []
 
   return (
     <div className="modal-overlay" onClick={onClose}>
       <form className="modal" onClick={e => e.stopPropagation()} onSubmit={handleSubmit}>
         <div className="modal-title">{initial ? 'Edit memory' : 'New memory'}</div>
 
+        {/* Title */}
         <div className="form-field">
           <label className="form-label">Title</label>
           <input
@@ -48,21 +44,7 @@ export default function CardForm({ initial, onSave, onClose }) {
           />
         </div>
 
-        <div className="form-field">
-          <label className="form-label">Color</label>
-          <div className="color-picker">
-            {COLOR_KEYS.map(key => (
-              <button
-                key={key}
-                type="button"
-                className={`color-swatch ${key}${color === key ? ' selected' : ''}`}
-                onClick={() => setColor(key)}
-                title={key}
-              />
-            ))}
-          </div>
-        </div>
-
+        {/* Memory text */}
         <div className="form-field">
           <label className="form-label">Memory</label>
           <textarea
@@ -74,46 +56,47 @@ export default function CardForm({ initial, onSave, onClose }) {
           />
         </div>
 
+        {/* Primary emotion — pill buttons */}
         <div className="form-field">
-          <label className="form-label">Category</label>
-          <select
-            className="form-select"
-            value={category}
-            onChange={e => setCategory(e.target.value)}
-          >
-            {CATEGORIES.map(c => (
-              <option key={c} value={c}>{c}</option>
+          <label className="form-label">Emotion</label>
+          <div className="primary-emotion-pills">
+            {PRIMARY_EMOTIONS.map(({ name, color }) => (
+              <button
+                key={name}
+                type="button"
+                className={`emotion-pill color-${color}${primaryEmotion === name ? ' selected' : ''}`}
+                onClick={() => selectPrimary(name)}
+                aria-pressed={primaryEmotion === name}
+              >
+                {name}
+              </button>
             ))}
-          </select>
+          </div>
         </div>
 
-        <div className="form-field">
-          <label className="form-label">Tags</label>
-          <div className="tags-input-row">
-            <input
-              className="form-input"
-              placeholder="Add a tag"
-              value={tagInput}
-              onChange={e => setTagInput(e.target.value)}
-              onKeyDown={handleTagKeyDown}
-            />
-            <button type="button" className="tags-add-btn" onClick={addTag}>+</button>
-          </div>
-          {tags.length > 0 && (
-            <div className="tags-list">
-              {tags.map(t => (
-                <span key={t} className="tag-chip">
-                  #{t}
-                  <button type="button" className="tag-chip-remove" onClick={() => removeTag(t)}>×</button>
-                </span>
+        {/* Sub-emotions — shown after primary is picked */}
+        {availableSubs.length > 0 && (
+          <div className="form-field">
+            <label className="form-label">Nuance</label>
+            <div className="primary-emotion-pills">
+              {availableSubs.map(sub => (
+                <button
+                  key={sub}
+                  type="button"
+                  className={`emotion-pill sub${subEmotions.includes(sub) ? ' selected-sub' : ''}`}
+                  onClick={() => toggleSub(sub)}
+                  aria-pressed={subEmotions.includes(sub)}
+                >
+                  {sub}
+                </button>
               ))}
             </div>
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="form-actions">
           <button type="button" className="btn-cancel" onClick={onClose}>Cancel</button>
-          <button type="submit" className="btn-save">Save</button>
+          <button type="submit" className="btn-save" disabled={!primaryEmotion}>Save</button>
         </div>
       </form>
     </div>
