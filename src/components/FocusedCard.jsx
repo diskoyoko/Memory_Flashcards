@@ -1,3 +1,6 @@
+import '../css/focused.css'
+import { emotionToColor } from '../data/seed'
+
 // FocusedCard.jsx — Full-screen overlay for a focused/selected card
 // When a card is clicked in ScatterView or FilterView, this component
 // renders on top of everything else (fixed position, centered on screen).
