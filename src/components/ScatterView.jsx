@@ -151,6 +151,13 @@ export default function ScatterView({ memories, focused, onFocus }) {
         className="scatter-canvas"
         style={{ transform: `translate(${pan.x}px, ${pan.y}px)` }}
       >
+        {/* Hero title — lives at the center of the canvas, pans away when you drag */}
+        <div className="canvas-hero">
+          <h1 className="canvas-title">Fragments<br />of Memory</h1>
+          <p className="canvas-subtitle">Revisit moments through how they were felt.</p>
+          <p className="canvas-drag-hint">drag to explore</p>
+        </div>
+
         {memories.map((m, i) => {
           const pos   = scatterPos(m.id, i, memories.length)
           const depth = cardDepth(m.id)
