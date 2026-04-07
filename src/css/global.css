@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg: #0E0E0E;
+  --color-surface: #1A1A1A;
+  --color-border: rgba(255,255,255,0.08);
+  --color-text: #F0EDE8;
+  --color-text-muted: rgba(240,237,232,0.45);
+  --color-overlay: rgba(0,0,0,0.65);
+
+  --card-radius: 18px;
+  --card-width: 220px;
+  --card-height: 300px;
+
+  --font-title: 'Instrument Serif', serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* card gradients */
+  --grad-crimson: linear-gradient(160deg, #E8291C 0%, #6B0D0D 100%);
+  --grad-mauve:   linear-gradient(160deg, #C9A8E0 0%, #8DB4D4 100%);
+  --grad-beige:   linear-gradient(160deg, #D4C5A9 0%, #C87941 100%);
+  --grad-orange:  linear-gradient(160deg, #E8831C 0%, #C8231C 100%);
+  --grad-forest:  linear-gradient(160deg, #2E7D52 0%, #0D2B1A 100%);
+  --grad-pink:    linear-gradient(160deg, #D4A8C0 0%, #C4A890 100%);
+}
+
+html, body, #root {
+  height: 100%;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* Focus ring for keyboard navigability */
+:focus-visible {
+  outline: 2px solid rgba(240,237,232,0.6);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  :root {
+    --card-width: 160px;
+    --card-height: 220px;
+  }
+}
+
+/* Empty state */
+.empty-state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.8;
+  pointer-events: none;
+}
+
+.empty-state-title {
+  font-family: var(--font-title);
+  font-style: italic;
+  font-size: 22px;
+  margin-bottom: 8px;
+  color: var(--color-text);
+  opacity: 0.4;
+}

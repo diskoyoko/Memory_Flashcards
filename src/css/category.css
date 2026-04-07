@@ -1,0 +1,44 @@
+.category-view {
+  padding: 80px 60px 60px;
+  overflow-y: auto;
+  height: 100%;
+}
+
+.category-group {
+  margin-bottom: 56px;
+}
+
+.category-heading {
+  font-family: var(--font-title);
+  font-size: 28px;
+  font-style: italic;
+  color: var(--color-text-muted);
+  margin-bottom: 28px;
+  letter-spacing: 0.01em;
+}
+
+.category-cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+}
+
+/* In category view cards use relative positioning */
+.category-view .card-wrapper {
+  position: relative;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  flex-shrink: 0;
+}
+
+.category-view .card-wrapper:hover {
+  transform: translateY(-4px) !important;
+}
+
+.category-view .card-wrapper.focused {
+  position: fixed;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) scale(1.1) !important;
+}
